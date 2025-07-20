@@ -1,4 +1,4 @@
-package uz.app.service.repository;
+package uz.app.service.service;
 
 import uz.app.service.model.Order;
 import uz.app.service.repository.OrderRepository;

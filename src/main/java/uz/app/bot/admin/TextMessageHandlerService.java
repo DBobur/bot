@@ -111,7 +111,10 @@ public class TextMessageHandlerService {
     }
 
     private SendMessage handleAddCategoryDescription(Long chatId, User user, String text) {
-        adminCacheService.getCategoryTemplate(chatId);
+        Category categoryTemplate = adminCacheService.getCategoryTemplate(chatId);
+        categoryTemplate.setDescription(text);
+        categoryService.updateCategory(categoryTemplate);
+
         adminCacheService.removeBotState(chatId);
         adminCacheService.removeCategoryTemplate(chatId);
 

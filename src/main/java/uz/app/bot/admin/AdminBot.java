@@ -1,4 +1,4 @@
-package uz.app.bot;
+package uz.app.bot.admin;
 
 import org.telegram.telegrambots.bots.TelegramLongPollingBot;
 import org.telegram.telegrambots.meta.api.objects.Update;
@@ -19,11 +19,19 @@ public class AdminBot extends TelegramLongPollingBot {
     private static final ExecutorService executorService =
             Executors.newFixedThreadPool(Runtime.getRuntime().availableProcessors());
 
+    private static final ThreadLocal<AdminBotController> botController =
+            ThreadLocal.withInitial(AdminBotController::new);
+
     @Override
     public void onUpdateReceived(Update update) {
         CompletableFuture.runAsync(() -> {
             botController.get().handle(update);
-        }, executorService);
+        }, executorService).exceptionally(ex -> {
+            // Log xatolikni aniq chiqaradi
+            System.err.println("❌ Exception while handling update: " + ex.getMessage());
+            ex.printStackTrace(); // batafsil log uchun
+            return null;
+        });
     }
 
     @Override

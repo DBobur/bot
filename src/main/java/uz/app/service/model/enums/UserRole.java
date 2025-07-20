@@ -1,5 +1,5 @@
-package uz.app.productbot.shop.entity.enums;
+package uz.app.service.model.enums;
 
 public enum UserRole {
-    USER_ROLE, SELLER_ROLE
+    USER_ROLE, ADMIN_ROLE
 }

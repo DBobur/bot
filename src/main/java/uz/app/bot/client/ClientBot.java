@@ -19,8 +19,8 @@ public class ClientBot extends TelegramLongPollingBot {
     private static final ExecutorService executorService =
             Executors.newFixedThreadPool(Runtime.getRuntime().availableProcessors());
 
-    private static final ThreadLocal<AdminBotController> botController =
-            ThreadLocal.withInitial(AdminBotController::new);
+    private static final ThreadLocal<ClientBotController> botController =
+            ThreadLocal.withInitial(ClientBotController::new);
 
     @Override
     public void onUpdateReceived(Update update) {

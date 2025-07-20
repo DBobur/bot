@@ -1,11 +1,12 @@
-package uz.app.productbot.bot.admin;
+package uz.app.bot.admin;
 
+import lombok.SneakyThrows;
 import org.telegram.telegrambots.meta.TelegramBotsApi;
+import org.telegram.telegrambots.meta.api.methods.BotApiMethod;
 import org.telegram.telegrambots.meta.api.methods.botapimethods.BotApiMethodMessage;
 import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
 import org.telegram.telegrambots.updatesreceivers.DefaultBotSession;
-import uz.app.productbot.bot.Main;
-import uz.app.productbot.shop.service.UserService;
+
 
 public class AdminBotExecutor {
 
@@ -15,8 +16,13 @@ public class AdminBotExecutor {
     private AdminBotExecutor() {
         try {
             TelegramBotsApi api = new TelegramBotsApi(DefaultBotSession.class);
-            this.bot = Main.bot;
+            // todo create bot
+            this.bot = new AdminBot(
+                    "7900636835:AAG_OaE5m_dVcf7j3UCoaBQ_9WvFrR79iDE",
+                    "@product_admin2025_bot"
+            );
             api.registerBot(bot);
+            System.out.println("admin bot is ready");
         } catch (Exception e) {
             throw new RuntimeException("Failed to register bot", e);
         }
@@ -29,7 +35,8 @@ public class AdminBotExecutor {
         return instance;
     }
 
-    public <T extends BotApiMethodMessage> void execute(T method) throws TelegramApiException {
+    @SneakyThrows
+    public void execute(BotApiMethod<?> method){
         bot.execute(method);
     }
 }
